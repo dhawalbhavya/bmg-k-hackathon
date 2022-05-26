@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 from typing import Optional
-
+from fastapi.middleware.cors import CORSMiddleware
 
 class Message(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -16,7 +16,19 @@ engine = create_engine(sqlite_url, echo=True)
 app = FastAPI()
 SQLModel.metadata.create_all(engine)
 session = Session(engine)
+app.add_middleware(
 
+    CORSMiddleware,
+
+    allow_origins=["*"],
+
+    allow_credentials=True,
+
+    allow_methods=["*"],
+
+    allow_headers=["*"],
+
+)
 
 @app.get("/{message}")
 async def reverse_message(message: str):
