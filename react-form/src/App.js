@@ -7,10 +7,11 @@ const API_BASE_URL = `http://localhost:9000`;
 const API_MESSAGE = (message) => `${API_BASE_URL}/${message}`;
 const API_ID = (id) => `${API_BASE_URL}/message/${id}`;
 
-const [message, setMessage] = useState("");
-const [ID, setID] = useState("");
 
 function App() {
+  const [message, setMessage] = useState("");
+  const [ID, setID] = useState("");
+  
   const handleSubmit = () => {
     const URL = (message !== "" ? API_MESSAGE(message) : API_ID(ID))
     axios.get(URL).then(res=>{alert(`response ${res.data}`)})
