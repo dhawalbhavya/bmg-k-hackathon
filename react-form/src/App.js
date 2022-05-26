@@ -1,16 +1,26 @@
 import logo from './logo.svg';
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import axios from 'axios';
 
-const API_BASE_URL = "http://localhost:9000/k8-hackathon";
+const API_BASE_URL = (message) => `http://localhost:9000/${message}`;
+
+const [message, setMessage] = useState();
+const [ID, setID] = useState();
 
 function App() {
   const handleSubmit = () => {
-
-    axios.get( "http://localhost:9000/k8-hackathon").then(res=>{alert(`response ${res.data}`)})
-  
+    const MESSAGE = (message !== "" ? message : ID)
+    axios.get(API_BASE_URL(MESSAGE)).then(res=>{alert(`response ${res.data}`)})
   }
+
+  const handleMessageChange = (event) => {
+    setMessage(event.target.value);
+  };
+
+  const handleIDChange = (event) => {
+    setID(event.target.value);
+  };
   return (
     <div className="Basic Form">
       <h1>Kubernetes Form</h1>
@@ -18,11 +28,11 @@ function App() {
       <fieldset>
          <label>
            <p>String To Reverse</p>
-           <input name="text" />
+           <input name="text" value={message} onChange={() => handleMessageChange} />
          </label>
          <label>
            <p>ID to get</p>
-           <input name="text" />
+           <input name="text" value={ID} onChange={() => handleIDChange} />
          </label>
        </fieldset>
        <button onClick= {()=> handleSubmit()} type="submit">Submit</button>
