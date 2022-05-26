@@ -11,7 +11,7 @@ const API_ID = (id) => `${API_BASE_URL}/message/${id}`;
 function App() {
   const [message, setMessage] = useState("");
   const [ID, setID] = useState("");
-  
+
   const handleSubmit = () => {
     const URL = (message !== "" ? API_MESSAGE(message) : API_ID(ID))
     axios.get(URL).then(res=>{alert(`response ${res.data}`)})
@@ -31,11 +31,11 @@ function App() {
       <fieldset>
          <label>
            <p>String To Reverse</p>
-           <input name="text" value={message} onChange={() => handleMessageChange} />
+           <input name="text" value={message} onChange={handleMessageChange} />
          </label>
          <label>
            <p>ID to get</p>
-           <input name="text" value={ID} onChange={() => handleIDChange} />
+           <input name="text" value={ID} onChange={handleIDChange} />
          </label>
        </fieldset>
        <button onClick= {()=> handleSubmit()} type="submit">Submit</button>
