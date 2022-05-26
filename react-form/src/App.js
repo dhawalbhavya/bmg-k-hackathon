@@ -14,7 +14,7 @@ function App() {
 
   const handleSubmit = () => {
     const URL = (message !== "" ? API_MESSAGE(message) : API_ID(ID))
-    axios.get(URL).then(res=>{alert(`response ${res.data}`)})
+    axios.get(URL).then(res=>{alert(`response ${JSON.stringify(res.data)}`)})
   }
 
   const handleMessageChange = (event) => {
